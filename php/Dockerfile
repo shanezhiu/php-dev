@@ -1,5 +1,8 @@
 FROM php:7.4.8-fpm-alpine
 
+LABEL maintainer="shanezhiu <shanezhiu@gmail.comn>"
+
+
 # php 容器配置文件目录
 #ENV PHP_INI_DIR /usr/local/etc/php
 
@@ -38,7 +41,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/re
 
 # 安装所需要的拓展
 RUN set -eux; \
-        # 安装gd库,icu依赖
+        # 安装gd库
         apk add --no-cache --virtual .run-deps \
             $PHPIZE_DEPS \
             # GD依赖库
