@@ -18,6 +18,7 @@
 
 ## 应用目录
 
+```
 ├── apps           # 应用代码库
 ├── cache          # 缓存数据库服务
 │   ├── memcached
@@ -41,6 +42,7 @@
 │   ├── conf
 │   └── Dockerfile
 └── README.md
+```
 
 
 
