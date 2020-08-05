@@ -15,7 +15,50 @@
 
 + php配置文件目录：　```/usr/local/etc/php```
 + nginx 配置文件目录： ```/etc/nginx```
-+ nginx 
+
+## 应用目录
+
+├── apps           # 应用代码库
+├── cache          # 缓存数据库服务
+│   ├── memcached
+│   └── redis
+├── database       # 数据库服务
+│   ├── mongodb
+│   ├── mysql
+│   ├── postgresql
+│   └── redis
+├── logs            # 日志服务
+│   ├── memcached
+│   ├── mysql
+│   ├── nginx
+│   ├── php-fpm
+│   ├── postgresql
+│   └── redis
+├── nginx           # nginx服务
+│   ├── conf.d
+│   └── Dockerfile
+├── php-fpm         # php-fpm服务
+│   ├── conf
+│   └── Dockerfile
+└── README.md
+
+
+
+### nginx
+
++ 配置目录
+
++ 日志目录
+
+### php
+
++ php-fpm配置目录
++ php.ini配置目录
+
+### mysql
+
++ mysql 数据目录
++ mysql 配置文件
 
 ## 一些问题
 
@@ -40,4 +83,3 @@
 
 
 > 是否可以将三个容器整合到一起，只暴露80端口，其他端口都不暴露？这样子操作是否会更好些？
-
