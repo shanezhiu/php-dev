@@ -2,13 +2,38 @@
 
 ## php 构建容器
 
-```sudo docker run -d -p 127.0.0.1:9001:9000 --name hostname  -w $(pwd) -v $(pwd):$(pwd) php-dev```
+```sudo docker run -d -p 9001:9000 --name hostname  -w $(pwd) -v $(pwd):$(pwd) php-dev```
 
 ## MySQL 构建容器
 
-```sudo docker run -itd -p 127.0.0.1:33060:3306 --name hostname --hostname=mysql-test -e MYSQL_ROOT_PASSWORD=test mysql```
+```sudo docker run -itd -p 33060:3306 --name hostname --hostname=mysql-test -e MYSQL_ROOT_PASSWORD=test mysql```
 
 ## Nginx 构建容器
+
+
+## 关于容器的环境变量
+
++ php配置文件目录：　```/usr/local/etc/php```
++ nginx 配置文件目录： ```/etc/nginx```
++ nginx 
+
+## 一些问题
+
+>>> php与nginx需要一个环境里吗，主要是PHP脚本是不是要在同一个容器里
+
+不需要，已经测试，只要保证fast_cgi能够找到对应的脚本就行，
+
+需要保证php容器脚本路径跟nginx里路径一样
+
+测试：
+
+1. 新建一个index.php,
+2. 让nginx,php的工作目录都包含他，nginx, php分别在两个容器内
+
+>>> 创建容器使用ipv6，而host未开启抓发ipv6,可能导致host无法转发
+
+
+
 
 
 
