@@ -1,0 +1,61 @@
+version: "3.8"
+
+# matainter 'shanezhiu <shanezhiu@gmail.com>'
+
+services: 
+    web:
+        build: nginx
+        depends_on: 
+            - php-fpm
+            - db
+        working_dir: /apps
+        volumes: 
+            - "./apps:/apps"
+            - "./nginx/conf.d:/etc/nginx/conf.d"
+            - "./nginx/ssl:/etc/nginx/ssl"
+            - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+            - "./logs/nginx:/var/log/nginx"
+        expose: 
+            - 80
+            - 81
+        ports: 
+            - "8080:80"
+        restart: "always"
+
+    php-fpm:
+        build: php-fpm
+        working_dir: /apps
+        depends_on: 
+            - db
+            - redis
+            - memcached
+        volumes: 
+            - "./apps/:/apps"
+            - "./php-fpm/conf/php.ini:/usr/local/etc/php/php.ini"
+            - "./php-fpm/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf"
+            - "./php-fpm/conf/php-fpm.d:/usr/local/etc/php-fpm.d"
+        expose: 
+            - 9000
+            - 9005
+        restart: "always"
+
+    db:
+        build: database/mysql
+        environment: 
+            - MYSQL_ROOT_PASSWORD="shanechioa"
+        volumes: 
+            - "./database/mysql/conf:/etc/mysql/conf.d"
+            - "./logs/mysql:/var/log/mysql"
+            - "./data/mysql:/data"
+        expose: 
+            - 3306
+            - 33060
+        restart: "always"
+
+    redis:
+        build: database/redis
+        restart: "always"
+
+    memcached:
+        build: cache/memcached
+        restart: "always"
