@@ -6,10 +6,10 @@
 
 ## MySQL 构建容器
 
-```sudo docker run -itd -p 33060:3306 --name hostname --hostname=mysql-test -e MYSQL_ROOT_PASSWORD=test mysql```
+```sudo docker run -itd -p 33061:3306 -v $(pwd)/database/mysql/conf:/etc/mysql/conf.d -v $(pwd)/logs/mysql:/var/log/mysql -v $(pwd)/data:/data --name mysqltest --hostname=mysql-test2 -e MYSQL_ROOT_PASSWORD=test mysql-test```
 
 ## Nginx 构建容器
-
+```sudo docker run -it -d nginx-test --name nginx-test nginx```
 
 ## 关于容器的环境变量
 
@@ -46,25 +46,9 @@
 
 
 
-### nginx
-
-+ 配置目录
-
-+ 日志目录
-
-### php
-
-+ php-fpm配置目录
-+ php.ini配置目录
-
-### mysql
-
-+ mysql 数据目录
-+ mysql 配置文件
-
 ## 一些问题
 
->>> php与nginx需要一个环境里吗，主要是PHP脚本是不是要在同一个容器里
+#### php与nginx需要一个环境里吗，主要是PHP脚本是不是要在同一个容器里
 
 不需要，已经测试，只要保证fast_cgi能够找到对应的脚本就行，
 
@@ -75,13 +59,15 @@
 1. 新建一个index.php,
 2. 让nginx,php的工作目录都包含他，nginx, php分别在两个容器内
 
-> 创建容器使用ipv6，而host未开启抓发ipv6,可能导致host无法转发
+#### 创建容器使用ipv6，而host未开启抓发ipv6,可能导致host无法转发
 
++ net.ipv4.ip_forward=1
++ net.ipv6.conf.all.forwarding=1
 
-> 通过-v挂载到容器里的目录权限似乎跟宿主机器的目录权限有区别？待测试
+#### 通过-v挂载到容器里的目录权限似乎跟宿主机器的目录权限有区别？待测试
 
+-v的方式默认是read-write方式
 
-> php-fpm 机器连通mysql, 需要一个授权信息，保证能够链接到内部网络
+#### php-fpm 机器连通mysql, 需要一个授权信息，保证能够链接到内部网络
 
-
-> 是否可以将三个容器整合到一起，只暴露80端口，其他端口都不暴露？这样子操作是否会更好些？
+#### 是否可以将三个容器整合到一起，只暴露80端口，其他端口都不暴露？这样子操作是否会更好些？
