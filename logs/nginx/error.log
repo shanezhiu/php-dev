@@ -1,0 +1,32 @@
+2020/08/07 07:22:05 [emerg] 1#1: unknown "doucment_root" variable
+2020/08/07 07:22:07 [emerg] 1#1: unknown "doucment_root" variable
+2020/08/07 07:22:08 [emerg] 1#1: unknown "doucment_root" variable
+2020/08/07 07:22:09 [emerg] 1#1: unknown "doucment_root" variable
+2020/08/07 07:22:11 [emerg] 1#1: unknown "doucment_root" variable
+2020/08/07 07:22:14 [emerg] 1#1: unknown "doucment_root" variable
+2020/08/07 07:22:18 [emerg] 1#1: unknown "doucment_root" variable
+2020/08/07 07:22:25 [emerg] 1#1: unknown "doucment_root" variable
+2020/08/07 07:22:39 [emerg] 1#1: unknown "doucment_root" variable
+2020/08/07 07:23:05 [emerg] 1#1: unknown "doucment_root" variable
+2020/08/07 07:23:57 [emerg] 1#1: unknown "doucment_root" variable
+2020/08/07 07:24:58 [emerg] 1#1: unknown "doucment_root" variable
+2020/08/07 07:26:14 [error] 22#22: *2 open() "/usr/share/nginx/html/favicon.ico" failed (2: No such file or directory), client: 172.23.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2020/08/07 07:27:14 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:13
+2020/08/07 07:29:28 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:13
+2020/08/07 07:30:12 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:13
+2020/08/07 07:30:14 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:13
+2020/08/07 07:30:16 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:13
+2020/08/07 07:30:17 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:13
+2020/08/07 07:30:19 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:13
+2020/08/07 07:30:22 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:13
+2020/08/07 07:30:26 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:13
+2020/08/07 07:30:34 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:13
+2020/08/07 07:30:47 [emerg] 1#1: unexpected "}" in /etc/nginx/conf.d/default.conf:13
+2020/08/07 07:31:05 [error] 21#21: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.23.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "localhost:8080"
+2020/08/07 07:31:08 [error] 21#21: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.23.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "localhost:8080"
+2020/08/07 07:33:12 [error] 22#22: *9 connect() failed (111: Connection refused) while connecting to upstream, client: 172.23.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8080"
+2020/08/07 07:33:13 [error] 22#22: *9 rewrite or internal redirection cycle while internally redirecting to "/favicon.ico", client: 172.23.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "127.0.0.1:8080", referrer: "http://127.0.0.1:8080/"
+2020/08/07 07:34:43 [error] 21#21: *11 connect() failed (111: Connection refused) while connecting to upstream, client: 172.23.0.1, server: localhost, request: "GET / HTTP/1.1", upstream: "fastcgi://127.0.0.1:9000", host: "127.0.0.1:8080"
+2020/08/07 07:34:43 [error] 21#21: *12 rewrite or internal redirection cycle while internally redirecting to "/favicon.ico", client: 172.23.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "127.0.0.1:8080", referrer: "http://127.0.0.1:8080/"
+2020/08/07 07:35:13 [error] 22#22: *1 rewrite or internal redirection cycle while internally redirecting to "/favicon.ico", client: 172.23.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "127.0.0.1:8080", referrer: "http://127.0.0.1:8080/"
+2020/08/07 07:35:18 [error] 22#22: *3 rewrite or internal redirection cycle while internally redirecting to "/favicon.ico", client: 172.23.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "127.0.0.1:8080", referrer: "http://127.0.0.1:8080/"

@@ -118,8 +118,4 @@ RUN set -eux; \
         apk del --no-network .run-deps; \
         php -m
 
-# 使用开发环境php.ini
-
-RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
-
-CMD ["php-fpm", "-F"]
+CMD ["php", "-v"]

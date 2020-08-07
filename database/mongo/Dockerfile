@@ -1,3 +1,3 @@
-FROM mysql:8.0
+FROM mongo:4.2-bionic
 
 LABEL maintainer="shanezhiu <shanezhiu@gmail.com>"
