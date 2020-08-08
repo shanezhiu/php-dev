@@ -7,6 +7,7 @@ services:
         build: nginx
         depends_on: 
             - php-fpm
+            - php7.1-fpm
         working_dir: /apps
         volumes: 
             - "./apps:/apps"
