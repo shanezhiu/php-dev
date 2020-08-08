@@ -7,7 +7,6 @@ services:
         build: nginx
         depends_on: 
             - php-fpm
-            - db
         working_dir: /apps
         volumes: 
             - "./apps:/apps"
@@ -21,9 +20,13 @@ services:
         ports: 
             - "8080:80"
         restart: "always"
+        networks: 
+            web_service:
+                ipv4_address: 172.27.0.2
+                ipv6_address: 2001:3984:3989::10
 
     php-fpm:
-        build: php-fpm
+        build: php-fpm/7.4
         working_dir: /apps
         depends_on: 
             - db
@@ -31,18 +34,45 @@ services:
             - memcached
         volumes: 
             - "./apps/:/apps"
-            - "./php-fpm/conf/php.ini:/usr/local/etc/php/php.ini"
-            - "./php-fpm/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf"
-            - "./php-fpm/conf/php-fpm.d:/usr/local/etc/php-fpm.d"
+            - "./logs/php-fpm:/var/logs/php"
+            - "./php-fpm/7.4/conf/php.ini:/usr/local/etc/php/php.ini"
+            - "./php-fpm/7.4/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf"
+            - "./php-fpm/7.4/conf/php-fpm.d:/usr/local/etc/php-fpm.d"
         expose: 
             - 9000
             - 9005
         restart: "always"
+        networks: 
+            web_service:
+                ipv4_address: 172.27.0.3
+                ipv6_address: 2001:3984:3989::11
+
+    php7.1-fpm:
+        build: php-fpm/7.1
+        working_dir: /apps
+        depends_on: 
+            - db
+            - redis
+            - memcached
+        volumes: 
+            - "./apps/:/apps"
+            - "./logs/php-fpm:/var/logs/php"
+            - "./php-fpm/7.1/conf/php.ini:/usr/local/etc/php/php.ini"
+            - "./php-fpm/7.1/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf"
+            - "./php-fpm/7.1/conf/php-fpm.d:/usr/local/etc/php-fpm.d"
+        expose: 
+            - 9000
+            - 9005
+        restart: "always"
+        networks: 
+            web_service:
+                ipv4_address: 172.27.0.4
+                ipv6_address: 2001:3984:3989::12
 
     db:
         build: database/mysql
         environment: 
-            - MYSQL_ROOT_PASSWORD="shanechioa"
+            - MYSQL_ROOT_PASSWORD=shanechioa
         volumes: 
             - "./database/mysql/conf:/etc/mysql/conf.d"
             - "./logs/mysql:/var/log/mysql"
@@ -51,11 +81,31 @@ services:
             - 3306
             - 33060
         restart: "always"
+        networks: 
+            web_service:
+                ipv4_address: 172.27.0.5
+                ipv6_address: 2001:3984:3989::13
 
     redis:
         build: database/redis
         restart: "always"
+        networks: 
+            web_service:
+                ipv4_address: 172.27.0.6
+                ipv6_address: 2001:3984:3989::14
 
     memcached:
         build: cache/memcached
         restart: "always"
+        networks: 
+            web_service:
+                ipv4_address: 172.27.0.7
+                ipv6_address: 2001:3984:3989::15
+
+networks: 
+    web_service:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: "172.27.0.0/16"
+                - subnet: "2001:3984:3989::/64"
