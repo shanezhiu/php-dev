@@ -38,6 +38,7 @@ innodb-strict-mode      = 1
 wait_timeout            = 60
 interactive_timeout     = 60
 
+default_authentication_plugin = mysql_native_password
 # Buffers
 sort_buffer_size        = 4M
 read_buffer_size        = 2M
