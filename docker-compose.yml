@@ -51,6 +51,11 @@ services:
     php7.1-fpm:
         build: php-fpm/7.1
         working_dir: /apps
+        environment: 
+            http_proxy: ''
+            https_proxy: ''
+            HTTP_PROXY: ''
+            HTTPS_PROXY: ''
         depends_on: 
             - db
             - redis
