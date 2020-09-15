@@ -15,9 +15,7 @@ RUN set -eux; \
             # intl所需库 
             icu-dev; \
         \
-        # 安装 pdo_mysql bcmath, opcached, sockets,pcntl,calendar,sysvmsg,sysvsem, sysvshm拓展
-        \
-        docker-php-ext-install intl \
+        docker-php-ext-install intl bcmath\
         ; \
         \
         runDeps="$( \
