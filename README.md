@@ -16,6 +16,11 @@
 + php配置文件目录：　```/usr/local/etc/php```
 + nginx 配置文件目录： ```/etc/nginx```
 
+
+## docker-compose
+
+``` cd php-dev && docker-compose up -d --build ```
+
 ## 应用目录
 
 ```
