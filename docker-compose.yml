@@ -82,7 +82,7 @@ services:
         volumes: 
             - "./database/mysql/conf:/etc/mysql/conf.d"
             - "./logs/mysql:/var/log/mysql"
-            - "./data/mysql:/data"
+            - "./data/mysql:/data/mysql"
         expose: 
             - 3306
             - 33060
