@@ -70,8 +70,8 @@ innodb_doublewrite              = 1
 # This is a recommended tuning variable for performance
 
 # LOGGING
-general_log_file                = /var/log/mysql/mysql.log
-log-error                       = /var/log/mysql/mysql-error.log
+general_log_file                = /var/logs/mysql/mysql.log
+log-error                       = /var/logs/mysql/mysql-error.log
 log-queries-not-using-indexes   = 1
 
 [mysqldump]
