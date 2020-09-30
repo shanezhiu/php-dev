@@ -36,9 +36,7 @@ services:
         volumes: 
             - "./apps/:/apps"
             - "./logs/php-fpm:/var/logs/php"
-            - "./php-fpm/7.4/conf/php.ini:/usr/local/etc/php/php.ini"
-            - "./php-fpm/7.4/conf/php-fpm.conf:/usr/local/etc/php-fpm.conf"
-            - "./php-fpm/7.4/conf/php-fpm.d:/usr/local/etc/php-fpm.d"
+            - "./php-fpm/7.4/conf:/usr/local/etc"
         expose: 
             - 9000
             - 9005
