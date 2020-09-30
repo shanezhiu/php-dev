@@ -58,7 +58,7 @@ RUN set -eux; \
             mongo-c-driver-dev \
         ; \
         \
-        # 安装 pdo_mysql bcmath, opcached, sockets,pcntl,calendar,sysvmsg,sysvsem, sysvshm拓展
+        # 安装 pdo_mysql bcmath, opcache, sockets,pcntl,calendar,sysvmsg,sysvsem, sysvshm拓展
         \
         docker-php-ext-install pdo_mysql bcmath opcache sockets pcntl calendar sysvmsg sysvsem sysvshm \
                && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
@@ -78,8 +78,13 @@ RUN set -eux; \
         ; \
         \
         # 安装imagemagick拓展
-        \
-        pecl install imagick-$IMAGICK_VERSION \
+	# bug:https://github.com/docker-library/php/issues/105#issuecomment-249716758
+	# bug:https://gitlab.alpinelinux.org/alpine/aports/-/issues/11522 
+	# imagick queryformats 为空,
+	# NoDecodeDelegateForThisImageFormat `PNG' @ error/constitute.c/ReadImage/562
+	# fix: apk add imagemagick
+	\
+	pecl install imagick-$IMAGICK_VERSION \
            && docker-php-ext-enable imagick \
         ; \
         \
@@ -112,14 +117,19 @@ RUN set -eux; \
                 | awk 'system("[ -e /usr/local/lib/" $1 " ]") == 0 { next } { print "so:" $1 }' \
         )"; \
         apk add --no-cache $runDeps; \
-        \
+	\
         # 删除依赖，减少image大小
         \
         apk del --no-network .run-deps; \
+	\
+	# php-fpm alpine 镜像里imagick-dev formats为0,必须安装imagemagick
+        \
+	apk add imagemagick; \
+	\
         php -m
 
 # 使用开发环境php.ini
 
-RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
+RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 CMD ["php-fpm", "-F"]
