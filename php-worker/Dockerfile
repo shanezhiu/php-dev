@@ -1,4 +1,4 @@
-FROM php:7.4.8-fpm-alpine
+FROM php:7.4.8-cli-alpine
 
 LABEL maintainer="shanezhiu <shanezhiu@gmail.com>"
 
@@ -23,6 +23,13 @@ ENV IMAGICK_VERSION 3.4.4
 ENV SWOOLE_VERSION 4.5.2
 ENV SWOOLE_SOURCE_DIR /tmp/swoole-src-$SWOOLE_VERSION
 ENV SWOOLE_URL https://github.com/swoole/swoole-src/archive/v$SWOOLE_VERSION.tar.gz
+
+
+# 安装scws分词拓展
+
+ENV SCWS_VERSION 1.2.3
+ENV SCWS_SOURCE_DIR /tmp/scws-$SCWS_VERSION/phpext
+ENV SCWS_URL http://www.xunsearch.com/scws/down/scws-$SCWS_VERSION.tar.bz2
 
 # mongodb 拓展版本
 
@@ -103,6 +110,29 @@ RUN set -eux; \
         touch /usr/local/etc/php/conf.d/swoole.ini; \
         echo 'extension=swoole.so' > /usr/local/etc/php/conf.d/swoole.ini; \
         rm -rf $SWOOLE_SOURCE_DIR /tmp/swoole.tar.gz \
+        ; \
+        \
+        # 安装scws拓展	
+        \
+        curl --noproxy "*" --progress-bar -v -fsSL -o /tmp/scws.tar.bz2 "$SCWS_URL"; \
+        cd /tmp && tar -xvf scws.tar.bz2 -C /tmp; \
+        \
+        # 先安装c库
+        \
+        cd $SCWS_SOURCE_DIR && cd ../ && ./configure && make install \
+        ; \
+        \
+        cd ${SCWS_SOURCE_DIR}; \
+        phpize && ./configure; \
+        make -j$(nproc) && make install; \
+        make clean \
+        ;\
+        \
+        # 生成拓展ini
+        \
+        touch /usr/local/etc/php/conf.d/scws.ini; \
+        echo 'extension = scws.so' > /usr/local/etc/php/conf.d/scws.ini; \
+        rm -rf ${SCWS_SOURCE_DIR} /tmp/scws.tar.gz \
         ; \
         \
         runDeps="$( \
