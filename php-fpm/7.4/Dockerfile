@@ -132,4 +132,7 @@ RUN set -eux; \
 
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
+# 指定用户，如果不指定用户，默认使用root
+USER 82:82
+
 CMD ["php-fpm", "-F"]
