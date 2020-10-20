@@ -20,6 +20,16 @@ ENV MEMCACHE_VERSION 4.0.5.2
 
 ENV IMAGICK_VERSION 3.4.4
 
+# mongodb
+
+ENV MONGO_VERSION 1.14.0
+ENV MONGO_URL https://github.com/mongodb/mongo-c-driver/archive/$MONGO_VERSION.tar.gz
+ENV MONGO_DIR  /tmp/mongo-c-driver-$MONGO_VERSION
+
+# mongodb 拓展版本
+
+ENV MONGO_PHP_VERSION 1.8.0
+
 # apcu 拓展版本
 
 ENV APCU_VERSION 5.1.18
@@ -46,7 +56,40 @@ RUN set -eux; \
         openssl-dev \
         # gettext
         gettext \
+        # cmake
+        cmake \
     ; \
+    \
+    # 安装mongo-c-driver
+    # 这个版本的aplpine有个提交记录：“Upstream has switched to a nonfree license＂
+    # 所以需要自己手动安装mongo-c-driver
+    # link: https://git.alpinelinux.org/aports/commit/testing?id=8a901de31fa055ed591d487e12f8bb9ffcc0df21
+    # link: https://gitlab.alpinelinux.org/alpine/aports/-/issues/10221#note-4
+    # link: https://github.com/instrumentisto/coturn-docker-image/commit/9bcdedabefb33b41e2047fa12bca46eb20c4fc98
+    curl --noproxy "*" --progress-bar -v -fsSL -o /tmp/mongo.tar.gz "$MONGO_URL"; \
+    cd /tmp && tar -zxvf mongo.tar.gz -C /tmp; \
+    mkdir -p /tmp/build/mongo-c-driver/ && cd /tmp/build/mongo-c-driver/; \
+    cmake -DCMAKE_BUILD_TYPE=Release \
+          -DCMAKE_INSTALL_PREFIX=/usr \
+          -DCMAKE_INSTALL_LIBDIR=lib \
+          -DENABLE_BSON:STRING=ON \
+          -DENABLE_MONGOC:BOOL=ON \
+          -DENABLE_SSL:STRING=OPENSSL \
+          -DENABLE_AUTOMATIC_INIT_AND_CLEANUP:BOOL=OFF \
+          -DENABLE_MAN_PAGES:BOOL=OFF \
+          -DENABLE_TESTS:BOOL=ON \
+          -DENABLE_EXAMPLES:BOOL=OFF \
+          -DCMAKE_SKIP_RPATH=ON \
+        $MONGO_DIR \
+    && make \
+    # Check mongo-c-driver build
+    && MONGOC_TEST_SKIP_MOCK=on \
+        MONGOC_TEST_SKIP_SLOW=on \
+        MONGOC_TEST_SKIP_LIVE=on \
+        make check \
+    \
+    # Install mongo-c-driver
+    && make install \
     \
     # 安装 pdo_mysql,mysqli,, bcmath, opcached, sockets,pcntl,calendar,sysvmsg,sysvsem, sysvshm拓展
     \
@@ -61,10 +104,22 @@ RUN set -eux; \
         && docker-php-ext-enable apcu \
     ; \
     \
+    #安装　mongodb拓展
+    \
+    pecl install mongodb-$MONGO_VERSION \
+        && docker-php-ext-enable mongodb \
+    ; \
+    \
     # 安装redis拓展
     \
     pecl install redis-$REDIS_VERSION \
         && docker-php-ext-enable redis \
+    ; \
+    \
+    #安装　mongodb拓展
+    \
+    pecl install mongodb-$MONGO_PHP_VERSION \
+        && docker-php-ext-enable mongodb \
     ; \
     \
     # 安装memcached 拓展
