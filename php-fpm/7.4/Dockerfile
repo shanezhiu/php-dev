@@ -78,11 +78,6 @@ RUN set -eux; \
         ; \
         \
         # 安装imagemagick拓展
-	# bug:https://github.com/docker-library/php/issues/105#issuecomment-249716758
-	# bug:https://gitlab.alpinelinux.org/alpine/aports/-/issues/11522 
-	# imagick queryformats 为空,
-	# NoDecodeDelegateForThisImageFormat `PNG' @ error/constitute.c/ReadImage/562
-	# fix: apk add imagemagick
 	\
 	pecl install imagick-$IMAGICK_VERSION \
            && docker-php-ext-enable imagick \
@@ -123,6 +118,11 @@ RUN set -eux; \
         apk del --no-network .run-deps; \
 	\
 	# php-fpm alpine 镜像里imagick-dev formats为0,必须安装imagemagick
+        # bug:https://github.com/docker-library/php/issues/105#issuecomment-249716758
+	# bug:https://gitlab.alpinelinux.org/alpine/aports/-/issues/11522 
+	# imagick queryformats 为空,
+	# NoDecodeDelegateForThisImageFormat `PNG' @ error/constitute.c/ReadImage/562
+	# fix: apk add imagemagick
         \
 	apk add imagemagick; \
 	\
