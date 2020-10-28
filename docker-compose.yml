@@ -89,7 +89,20 @@ services:
             web_service:
                 ipv4_address: 172.27.0.5
                 ipv6_address: 2001:3984:3989::13
-
+    mongo:
+        build: database/mongo
+        restart: "always"
+        expose: 
+            - "27017"
+            - "27016"
+        volumes: 
+            - "./database/mongo/conf/mongod.conf:/etc/mongod.conf"
+            - "./data/mongo:/var/lib/mongodb"
+            - "./logs/mongo:/var/log/mongodb"    
+        networks: 
+            web_service:
+                ipv4_address: 172.27.0.9
+                ipv6_address: 2001:3984:3989::17
     redis:
         build: database/redis
         restart: "always"

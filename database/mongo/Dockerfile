@@ -1,3 +1,7 @@
-FROM mongo:4.2-bionic
+FROM mongo:4.4.1-bionic as mongo
 
-LABEL maintainer="shanezhiu <shanezhiu@gmail.com>"
+LABEL MAINTAINER="shanezhiu <shanezhiu@gmail.com>"
+
+USER 1010:1010
+
+CMD [ "mongod", "--config", "/etc/mongod.conf"]
