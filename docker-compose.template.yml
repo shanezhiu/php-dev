@@ -91,16 +91,14 @@ services:
                 ipv6_address: 2001:3984:3989::13
     mongo:
         build: database/mongo
-        mongo:
-            build: ./
-            restart: "always"
-            expose: 
-                - "27017"
-                - "27016"
-            volumes: 
-                - "./conf/mongod.conf:/etc/mongod.conf"
-                - "./data:/var/lib/mongodb"
-                - "./log:/var/log/mongodb"    
+        restart: "always"
+        expose: 
+            - "27017"
+            - "27016"
+        volumes: 
+            - "./conf/mongod.conf:/etc/mongod.conf"
+            - "./data:/var/lib/mongodb"
+            - "./log:/var/log/mongodb"    
         networks: 
             web_service:
                 ipv4_address: 172.27.0.9
