@@ -89,7 +89,11 @@ RUN set -eux; \
         make check \
     \
     # Install mongo-c-driver
-    && make install \
+    && make install; \
+    \
+    # 清除
+    \
+    rm -rf /tmp/build/mongo-c-driver/ && rm -f /tmp/mongo.tar.gz \
     \
     # 安装 pdo_mysql,mysqli,, bcmath, opcached, sockets,pcntl,calendar,sysvmsg,sysvsem, sysvshm拓展
     \
