@@ -96,9 +96,9 @@ services:
             - "27017"
             - "27016"
         volumes: 
-            - "./conf/mongod.conf:/etc/mongod.conf"
-            - "./data:/var/lib/mongodb"
-            - "./log:/var/log/mongodb"    
+            - "./database/mongo/conf/mongod.conf:/etc/mongod.conf"
+            - "./data/mongo:/var/lib/mongodb"
+            - "./logs/mongo:/var/log/mongodb"    
         networks: 
             web_service:
                 ipv4_address: 172.27.0.9
