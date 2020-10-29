@@ -108,12 +108,6 @@ RUN set -eux; \
         && docker-php-ext-enable apcu \
     ; \
     \
-    #安装　mongodb拓展
-    \
-    pecl install mongodb-$MONGO_VERSION \
-        && docker-php-ext-enable mongodb \
-    ; \
-    \
     # 安装redis拓展
     \
     pecl install redis-$REDIS_VERSION \
