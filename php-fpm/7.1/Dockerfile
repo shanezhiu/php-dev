@@ -3,7 +3,7 @@ FROM php:7.1-fpm-alpine
 LABEL maintainer="shanezhiu <shanezhiu@gmail.com>"
 
 # 换国内源
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 # memcached拓展版本
 
