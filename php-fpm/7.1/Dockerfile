@@ -28,7 +28,7 @@ ENV MONGO_DIR  /tmp/mongo-c-driver-$MONGO_VERSION
 
 # mongodb 拓展版本
 
-ENV MONGO_PHP_VERSION 1.8.0
+ENV MONGO_PHP_VERSION 1.8.1
 
 # GD库依赖
 ENV GD_DEPENS \
