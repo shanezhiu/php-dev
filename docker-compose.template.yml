@@ -109,6 +109,7 @@ services:
         volumes: 
             - "./database/redis/conf.d/redis.conf:/etc/redis.conf"
             - "./data/redis:/var/lib/redis"
+            - "./logs/redis:/var/lib/logs"
         networks: 
             web_service:
                 ipv4_address: 172.27.0.6
