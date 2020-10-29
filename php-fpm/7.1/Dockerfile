@@ -30,10 +30,6 @@ ENV MONGO_DIR  /tmp/mongo-c-driver-$MONGO_VERSION
 
 ENV MONGO_PHP_VERSION 1.8.0
 
-# apcu 拓展版本
-
-ENV APCU_VERSION 5.1.18
-
 # GD库依赖
 ENV GD_DEPENS \
             freetype-dev \
@@ -100,12 +96,6 @@ RUN set -eux; \
     docker-php-ext-install pdo_mysql mysqli bcmath opcache sockets pcntl calendar sysvmsg sysvsem sysvshm \
             && docker-php-ext-configure gd --with-freetype-dir --with-jpeg-dir --with-png-dir --with-webp-dir \
             && docker-php-ext-install -j$(nproc) gd \
-    ; \
-    \
-    # 安装apcu拓展
-    \
-    pecl install apcu-$APCU_VERSION \
-        && docker-php-ext-enable apcu \
     ; \
     \
     # 安装redis拓展
