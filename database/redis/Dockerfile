@@ -4,4 +4,6 @@ EXPOSE 6378
 
 LABEL maintainer="shanezhiu <shanezhiu@gmail.com>"
 
+USER 1011:1011
+
 CMD [ "redis-server", "/etc/redis.conf" ]
