@@ -11,7 +11,7 @@ ENV MEMCACHED_VERSION 3.1.5
 
 # redis 拓展版本
 
-ENV REDIS_VERSION 5.3.1
+ENV REDIS_VERSION 5.3.2
 
 # memcache 拓展版本
 ENV MEMCACHE_VERSION 4.0.5.2
@@ -90,7 +90,8 @@ RUN set -eux; \
     \
     # 清除
     \
-    rm -rf /tmp/build/mongo-c-driver/ && rm -f /tmp/mongo.tar.gz; \
+    rm -rf /tmp/build/mongo-c-driver/ && rm -f /tmp/mongo.tar.gz \
+    ; \
     \
     # 更新pecl协议
     \
