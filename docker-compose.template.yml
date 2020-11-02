@@ -95,6 +95,8 @@ services:
         expose: 
             - "27017"
             - "27016"
+        ports:
+            - "27016:27017"
         volumes: 
             - "./database/mongo/conf/mongod.conf:/etc/mongod.conf"
             - "./data/mongo:/var/lib/mongodb"
@@ -110,6 +112,8 @@ services:
             - "./database/redis/conf.d/redis.conf:/etc/redis.conf"
             - "./data/redis:/var/lib/redis"
             - "./logs/redis:/var/lib/logs"
+        ports:
+            - "6378:6378"
         networks: 
             web_service:
                 ipv4_address: 172.27.0.6
